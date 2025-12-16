@@ -111,6 +111,7 @@
 
   if (targets.length === 0) return;
 
+  // 初期スタイルと段階的ディレイ
   targets.forEach(el => {
     el.classList.add('reveal');
     const parent = el.parentElement;
@@ -121,26 +122,74 @@
     }
   });
 
+  // フォールバック
   if (prefersReduced || typeof IntersectionObserver === 'undefined') {
     targets.forEach(el => el.classList.add('is-visible'));
     return;
   }
 
-  const isMobile = (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) || 'ontouchstart' in window;
-  const ioOptions = isMobile
-    ? { root: null, rootMargin: '0px 0px 30% 0px', threshold: 0.9 }
-    : { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.15 };
+  // 画面幅に応じたオプションを算出
+  const getBucketByWidth = (w) => {
+    if (w <= 480) return 0;           // phone small
+    if (w <= 768) return 1;           // phone large / small tablet
+    if (w <= 1024) return 2;          // tablet / small laptop
+    return 3;                         // desktop
+  };
 
-  const io = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        obs.unobserve(entry.target);
-      }
+  const getIoOptionsByBucket = (bucket) => {
+    switch (bucket) {
+      case 0: // ≤480px
+        return { root: null, rootMargin: '0px 0px 40% 0px', threshold: 0.05 };
+      case 1: // 481–768px
+        return { root: null, rootMargin: '0px 0px 30% 0px', threshold: 0.1 };
+      case 2: // 769–1024px
+        return { root: null, rootMargin: '0px 0px 10% 0px', threshold: 0.15 };
+      default: // >1024px
+        return { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.2 };
+    }
+  };
+
+  let io = null;
+  let currentBucket = getBucketByWidth(window.innerWidth || document.documentElement.clientWidth || 0);
+
+  const initObserver = () => {
+    if (io) io.disconnect();
+    const options = getIoOptionsByBucket(currentBucket);
+    io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    // まだ可視化していない要素のみ監視
+    targets.forEach(el => {
+      if (!el.classList.contains('is-visible')) io.observe(el);
     });
-  }, ioOptions);
+  };
 
-  targets.forEach(el => io.observe(el));
+  initObserver();
+
+  // リサイズ/向き変更時にブレークポイントが変わった場合のみ再初期化
+  let resizeTimer = 0;
+  const onResize = () => {
+    const w = window.innerWidth || document.documentElement.clientWidth || 0;
+    const nextBucket = getBucketByWidth(w);
+    if (nextBucket !== currentBucket) {
+      currentBucket = nextBucket;
+      initObserver();
+    }
+  };
+
+  const debounced = () => {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(onResize, 150);
+  };
+
+  window.addEventListener('resize', debounced);
+  window.addEventListener('orientationchange', debounced);
 })();
 
 // ===== Terms of Service (初回アクセス時の同意) =====
