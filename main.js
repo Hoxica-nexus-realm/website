@@ -99,7 +99,7 @@
 
 (function scrollReveal() {
   const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  
+
   const targets = [
     ...document.querySelectorAll('.card'),
     ...document.querySelectorAll('.embed-card'),
@@ -110,7 +110,7 @@
   ];
 
   if (targets.length === 0) return;
-  
+
   targets.forEach(el => {
     el.classList.add('reveal');
     const parent = el.parentElement;
@@ -120,11 +120,16 @@
       if (index >= 0) el.style.transitionDelay = `${Math.min(index * 60, 360)}ms`;
     }
   });
-  
+
   if (prefersReduced || typeof IntersectionObserver === 'undefined') {
     targets.forEach(el => el.classList.add('is-visible'));
     return;
   }
+
+  const isMobile = (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) || 'ontouchstart' in window;
+  const ioOptions = isMobile
+    ? { root: null, rootMargin: '0px 0px 30% 0px', threshold: 0.9 }
+    : { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.15 };
 
   const io = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
@@ -133,7 +138,7 @@
         obs.unobserve(entry.target);
       }
     });
-  }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+  }, ioOptions);
 
   targets.forEach(el => io.observe(el));
 })();
@@ -157,17 +162,17 @@
 
   const d = document;
   const body = d.body;
-  
+
   const backdrop = d.createElement('div');
   backdrop.className = 'modal-backdrop show';
-  
+
   const modal = d.createElement('div');
   modal.className = 'tos-modal show';
   modal.setAttribute('role', 'dialog');
   modal.setAttribute('aria-modal', 'true');
   modal.setAttribute('aria-labelledby', 'tos-title');
   modal.setAttribute('aria-describedby', 'tos-desc');
-  
+
   const dialog = d.createElement('div');
   dialog.className = 'tos-dialog';
 
@@ -232,7 +237,6 @@
       e.preventDefault();
     }
   });
-
   const close = () => {
     modal.classList.remove('show');
     backdrop.classList.remove('show');
@@ -254,3 +258,4 @@
     firstFocus();
   });
 })();
+
