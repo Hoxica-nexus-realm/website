@@ -9,8 +9,13 @@
   <meta property="og:description" content="サバイバル/クリエイティブ/ミニゲームの紹介。DiscordやLINEオープンチャットへの参加と、お問い合わせ方法（Discordチケット/公式LINE）を掲載。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="/">
+  <meta property="og:image" content="server image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hoxica Nexus Realm — サーバー紹介とコミュニティ・お問い合わせ">
+  <meta name="twitter:description" content="サバイバル/クリエイティブ/ミニゲームの紹介。DiscordやLINEオープンチャットへの参加と、お問い合わせ方法（Discordチケット/公式LINE）を掲載。">
+  <meta name="twitter:image" content="server image.png">
+  <link rel="canonical" href="/">
   <meta name="theme-color" content="#0ea5e9">
-  <!-- Favicons -->
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
   <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
@@ -23,16 +28,30 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <script src="main.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Hoxica Nexus Realm",
+    "url": "/",
+    "logo": "favicon-48x48.png",
+    "sameAs": [
+      "https://dc.gg/hosy",
+      "https://lin.ee/IggTmaZH"
+    ]
+  }
+  </script>
 </head>
 <body>
+  <a href="#main" class="skip-link">本文へスキップ</a>
   <header>
     <div class="container nav">
-      <a class="brand" href="#">
+      <a class="brand" href="index.html">
         <span class="logo"></span>
         <span>Hoxica Nexus Realm</span>
       </a>
       <button id="themeToggle" class="theme-toggle" aria-label="テーマを切り替え">🌙</button>
-      <nav class="nav-links" id="navLinks">
+      <nav class="nav-links" id="navLinks" role="navigation" aria-label="主要ナビゲーション">
         <a href="#features">サーバーの特徴</a>
         <a href="#about">サーバー紹介</a>
         <a href="#join">参加方法</a>
@@ -41,11 +60,11 @@
         <a href="#contact">お問い合わせ</a>
         <a class="btn" href="#cta">参加する</a>
       </nav>
-      <button class="menu-btn" id="menuBtn" aria-label="メニュー">☰</button>
+      <button class="menu-btn" id="menuBtn" aria-label="メニュー" aria-controls="navLinks" aria-expanded="false">☰</button>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero container">
       <span class="badge">公式サイト</span>
       <h1>Hoxica Nexus Realm</h1>
@@ -55,8 +74,6 @@
         <a class="btn btn-ghost" rel="noopener noreferrer" target="_blank" href="https://line.me/ti/g2/eAv7U6IeXsiMIAL4KbG77YR5z_10VdQPO-N7sA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default">LINEオープンチャットに参加</a>
       </div>
     </section>
-
-    <!-- Features (moved to the top as requested) -->
     <section id="features" class="features container">
       <h2>サーバーの特徴</h2>
       <div class="grid">
@@ -92,8 +109,6 @@
         </article>
       </div>
     </section>
-
-    <!-- About / Server 紹介 -->
     <section id="about" class="section container">
       <div class="two-col">
         <div class="stack">
@@ -122,8 +137,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Join Guide -->
     <section id="join" class="section container">
       <h2>Hoxica Nexus Realm Server 参加方法</h2>
       <p class="lead">お使いのエディションに合わせて、以下の手順で参加してください。</p>
@@ -150,8 +163,6 @@
         </article>
       </div>
     </section>
-
-    <!-- Community -->
     <section id="community" class="section container">
       <h2>コミュニティ</h2>
       <p class="lead">Discordサーバーや公式LINEで最新情報や仲間を見つけよう。</p>
@@ -175,8 +186,6 @@
         </article>
       </div>
     </section>
-
-    <!-- Staff -->
     <section id="staff" class="section container">
       <h2>運営紹介</h2>
       <div class="grid" style="margin-top:16px;">
@@ -212,8 +221,6 @@
         </article>
       </div>
     </section>
-
-    <!-- CTA moved near the end to preserve requested section order -->
     <section id="cta" class="cta container">
       <div class="cta-wrap">
         <h2>今すぐコミュニティに参加しよう</h2>
@@ -224,8 +231,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Contact (moved to bottom + list -> non-list) -->
     <section id="contact" class="section container">
       <div class="two-col">
         <div class="stack">
@@ -249,14 +254,12 @@
         </div>
       </div>
     </section>
-
-    <!-- Features section moved above after hero -->
   </main>
 
   <footer>
     <div class="container foot">
       <span>© <span id="y"></span> Hoxica</span>
-      <span><a href="rules.html">サーバールール</a> ・ <a href="terms.html">利用規約</a> ・ <a href="privacy.html">プライバシーポリシー</a></span>
+      <span><a href="rules.html">サーバールール</a> ・ <a href="#contact">お問い合わせ</a> ・ <a href="#community">コミュニティ</a></span>
     </div>
   </footer>
 </body>

@@ -65,11 +65,34 @@
   const nav = document.getElementById('navLinks');
   const btn = document.getElementById('menuBtn');
   if (!nav || !btn) return;
-  btn.addEventListener('click', () => nav.classList.toggle('show'));
+  const setOpen = (open) => {
+    nav.classList.toggle('show', open);
+    btn.setAttribute('aria-expanded', String(!!open));
+  };
+
+  btn.addEventListener('click', () => {
+    const isOpen = nav.classList.contains('show');
+    setOpen(!isOpen);
+    if (!isOpen) {
+      const firstLink = nav.querySelector('a');
+      firstLink && firstLink.focus();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const isOpen = nav.classList.contains('show');
+    if (!isOpen) return;
+    if (!nav.contains(e.target) && e.target !== btn) setOpen(false);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
 })();
 
 (function smoothScroll() {
   const nav = document.getElementById('navLinks');
+  const menuBtn = document.getElementById('menuBtn');
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const id = a.getAttribute('href');
@@ -78,7 +101,8 @@
       if (!target) return;
       e.preventDefault();
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      nav?.classList.remove('show');
+      if (nav) nav.classList.remove('show');
+      if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
     });
   });
 })();
@@ -86,7 +110,7 @@
 (function conditionalServerImage() {
   const img = document.querySelector('.server-shot img');
   if (!img) return;
-  const url = 'server image.png'; // Place real PNG at: homepage/server image.png
+  const url = 'server image.png';
   fetch(url, { method: 'HEAD' })
     .then(res => {
       if (res.ok) {
@@ -111,7 +135,6 @@
 
   if (targets.length === 0) return;
 
-  // 初期スタイルと段階的ディレイ
   targets.forEach(el => {
     el.classList.add('reveal');
     const parent = el.parentElement;
@@ -122,29 +145,27 @@
     }
   });
 
-  // フォールバック
   if (prefersReduced || typeof IntersectionObserver === 'undefined') {
     targets.forEach(el => el.classList.add('is-visible'));
     return;
   }
 
-  // 画面幅に応じたオプションを算出
   const getBucketByWidth = (w) => {
-    if (w <= 480) return 0;           // phone small
-    if (w <= 768) return 1;           // phone large / small tablet
-    if (w <= 1024) return 2;          // tablet / small laptop
-    return 3;                         // desktop
+    if (w <= 480) return 0;
+    if (w <= 768) return 1;
+    if (w <= 1024) return 2;
+    return 3;
   };
 
   const getIoOptionsByBucket = (bucket) => {
     switch (bucket) {
-      case 0: // ≤480px
+      case 0:
         return { root: null, rootMargin: '0px 0px 40% 0px', threshold: 0.05 };
-      case 1: // 481–768px
+      case 1:
         return { root: null, rootMargin: '0px 0px 30% 0px', threshold: 0.1 };
-      case 2: // 769–1024px
+      case 2:
         return { root: null, rootMargin: '0px 0px 10% 0px', threshold: 0.15 };
-      default: // >1024px
+      default:
         return { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.2 };
     }
   };
@@ -164,7 +185,6 @@
       });
     }, options);
 
-    // まだ可視化していない要素のみ監視
     targets.forEach(el => {
       if (!el.classList.contains('is-visible')) io.observe(el);
     });
@@ -172,7 +192,6 @@
 
   initObserver();
 
-  // リサイズ/向き変更時にブレークポイントが変わった場合のみ再初期化
   let resizeTimer = 0;
   const onResize = () => {
     const w = window.innerWidth || document.documentElement.clientWidth || 0;
@@ -191,13 +210,10 @@
   window.addEventListener('resize', debounced);
   window.addEventListener('orientationchange', debounced);
 })();
-
-// ===== Terms of Service (初回アクセス時の同意) =====
 (function tosConsent() {
-  const VERSION = '2025-12-16'; // 規約の版。更新したら変更 → 再同意を促す
+  const VERSION = '2025-12-16';
   const KEY = 'hoxica_tos';
 
-  // 既に同意済みかチェック
   let accepted = false;
   try {
     const raw = localStorage.getItem(KEY);
@@ -257,12 +273,8 @@
   foot.append(deny, agree);
   dialog.append(head, bodyWrap, foot);
   modal.append(dialog);
-
-  // 画面に追加 & 背景スクロール禁止
   body.append(backdrop, modal);
   body.classList.add('no-scroll');
-
-  // フォーカス管理（タブトラップ）
   const focusables = () => Array.from(dialog.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])')).filter(el => !el.hasAttribute('disabled'));
   const firstFocus = () => {
     const els = focusables();
@@ -281,7 +293,6 @@
         if (idx === -1 || idx >= els.length - 1) { e.preventDefault(); els[0].focus(); }
       }
     }
-    // 初回はESCで閉じられないようにする（明示的に意思表示が必要）
     if (e.key === 'Escape') {
       e.preventDefault();
     }
@@ -302,7 +313,6 @@
   });
 
   deny.addEventListener('click', () => {
-    // 同意されない場合は、引き続き閲覧はブロック。必要に応じて案内
     alert('利用規約に同意いただけない場合、サイトをご利用いただけません。規約をご確認のうえ、同意するを押してください。');
     firstFocus();
   });

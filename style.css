@@ -17,7 +17,6 @@
 
 * { box-sizing: border-box; }
 html, body { height: 100%; }
-/* Make gradient cover the entire page by applying it to html element */
 html {
   background: radial-gradient(1200px 600px at 80% -10%, rgba(99,102,241,.18), transparent 60%),
               radial-gradient(1000px 600px at -10% 10%, rgba(14,165,233,.2), transparent 60%),
@@ -30,6 +29,19 @@ body {
   background: transparent;
   line-height: 1.6;
 }
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 8px;
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  transition: top .2s ease;
+  z-index: 100;
+}
+.skip-link:focus-visible { top: 8px; outline: 2px solid #fff; outline-offset: 2px; }
 
 .container { width: min(100% - 32px, var(--container)); margin-inline: auto; }
 a { color: inherit; text-decoration: none; }
@@ -52,23 +64,30 @@ header {
 .btn-ghost { border: 1px solid rgba(148,163,184,.25); background: rgba(15,20,27,.6); color: var(--text); }
 .btn-ghost:hover { background: rgba(15,20,27,.9); }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
 .menu-btn { display: none; background: transparent; border: 0; color: var(--text); font-size: 22px; }
 
-/* theme toggle button - icon only, no border, no background */
 .theme-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px; height: 36px; /* keep hit area */
+  width: 36px; height: 36px;
   border-radius: 999px;
   border: 0;
   background: transparent;
-  color: var(--text); /* white in dark, black in light */
+  color: var(--text);
   cursor: pointer;
 }
 .theme-toggle:hover { opacity: .9; }
 .theme-toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-/* svg icon sizing + state (sun for dark, moon for light) */
 .theme-toggle svg { width: 22px; height: 22px; display: inline-block; }
 .theme-toggle .sun { display: inline-block; }
 .theme-toggle .moon { display: none; }
@@ -104,8 +123,6 @@ footer { border-top: 1px solid rgba(148,163,184,.12); color: var(--muted); paddi
   .nav-links.show { display: flex; }
   .menu-btn { display: inline-flex; }
 }
-
-/* Sections & Layout */
 section { scroll-margin-top: 76px; }
 .section { padding: 40px 0 70px; }
 .section h2 { margin: 0 0 8px; font-size: clamp(24px, 4vw, 32px); }
@@ -117,13 +134,9 @@ section { scroll-margin-top: 76px; }
 .stack { display: grid; gap: 12px; }
 .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
 .muted { color: var(--muted); }
-
-/* server overview image */
 .server-shot { margin-top: 12px; }
 .server-shot img { width: 100%; display: block; border-radius: 10px; border: 1px solid rgba(148,163,184,.18); background: rgba(15,20,27,.6); box-shadow: 0 8px 24px rgba(2,6,23,.35); transition: opacity .3s ease, box-shadow .25s ease, background .25s ease; }
 .server-shot figcaption { font-size: 12px; color: var(--muted); margin-top: 6px; text-align: center; }
-
-/* Form & inputs */
 form { display: grid; gap: 12px; }
 .field { display: grid; gap: 6px; }
 label { font-size: 14px; color: var(--muted); }
@@ -133,52 +146,34 @@ textarea { min-height: 140px; resize: vertical; }
 .alert { border: 1px solid rgba(148,163,184,.25); background: rgba(148,163,184,.08); color: var(--text); padding: 10px 12px; border-radius: 10px; font-size: 14px; }
 .qr { width: 160px; height: 160px; border-radius: 10px; border: 1px solid rgba(148,163,184,.18); background: rgba(15,20,27,.6); }
 iframe.discord { width: 100%; min-height: 300px; border: 0; border-radius: 10px; }
-
-/* Join section center alignment */
 #join .card { text-align: center; }
 #join h2, #join .lead { text-align: center; }
 #join ol { list-style-position: inside; padding-left: 0; text-align: center; margin: 8px 0 0; }
-
-/* Contact section: center align content */
 #contact .two-col { grid-template-columns: 1fr; }
 #contact .stack { align-items: center; text-align: center; }
 #contact .contact-card { max-width: 680px; margin-inline: auto; text-align: left; }
 #contact .contact-card h3,
 #contact .contact-card p { text-align: center; }
 #contact .contact-actions { justify-content: center; }
-
-/* Rules page specific tweaks */
 .rules-page { --container: 900px; }
 .rules-page main { padding: 32px 0 60px; }
 .rules-page h1 { font-size: clamp(28px, 5vw, 40px); margin: 8px 0 6px; }
 .rule { background: linear-gradient(180deg, rgba(148,163,184,.06), rgba(148,163,184,.02)); border: 1px solid rgba(148,163,184,.12); border-radius: var(--radius); padding: 16px; margin: 12px 0; transition: background .25s ease, border-color .25s ease, box-shadow .25s ease; }
-
-/* Buttons transitions */
 .btn { transition: filter .2s ease, background .25s ease, box-shadow .25s ease, color .2s ease, border-color .2s ease; }
 .btn-ghost { transition: background .25s ease, color .2s ease, border-color .2s ease, box-shadow .25s ease; }
-
-/* Fade-in animation */
 @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
 
 .hero,
 .features,
 .section,
 .cta-wrap { animation: fadeIn .6s ease both; }
-
-/* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
 
-/* テーマ設定：デフォルトは常にダーク（OS設定に依存しない） */
 :root { color-scheme: dark; }
-/* もし将来的にライトテーマを明示的に有効化したい場合は
-   html または body に data-theme="light" を付与し、
-   下記のコメントアウトを参考に変数を上書きしてください。
-   現状はダーク固定です。 */
 html[data-theme="light"],
 :root[data-theme="light"] {
-  /* 指定のライトモード配色 */
   --bg: #f8fafc;
   --bg-elev: #f1f5f9;
   --text: #0f172a;
@@ -193,13 +188,10 @@ html[data-theme="light"],
   --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.08);
   --shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.16);
   --focus: #0ea5e9;
-  /* ダークテーマで使用している --shadow をライトの大きめ影に合わせる */
   --shadow: var(--shadow-lg);
 }
 html[data-theme="light"] { color-scheme: light; }
 
-/* Light mode component polish */
-/* Light mode background applied to html so it spans the whole page */
 html[data-theme="light"] {
   background: radial-gradient(1200px 600px at 80% -10%, rgba(56,189,248,.12), transparent 60%),
               radial-gradient(1000px 600px at -10% 10%, rgba(99,102,241,.10), transparent 60%),
@@ -244,7 +236,6 @@ html[data-theme="light"] .server-shot img {
 
 html[data-theme="light"] footer { border-top-color: rgba(15,23,42,.08); color: #475569; }
 
-/* Contact セクションのレイアウト最適化 */
 #contact .stack { align-self: center; }
 #contact .contact-card { 
   background: linear-gradient(180deg, rgba(148,163,184,.06), rgba(148,163,184,.02));
@@ -261,10 +252,8 @@ html[data-theme="light"] footer { border-top-color: rgba(15,23,42,.08); color: #
 #contact .contact-actions .btn, 
 #contact .contact-actions .btn-ghost { width: 100%; }
 
-/* --- Scroll Reveal (on-scroll animations) --- */
 .reveal { opacity: 0; transform: translateY(12px); }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
-/* Smooth transition for most blocks; keep durations consistent with theme */
 .reveal,
 .reveal .card,
 .reveal .embed-card,
@@ -272,15 +261,12 @@ html[data-theme="light"] footer { border-top-color: rgba(15,23,42,.08); color: #
 .reveal .rule,
 .reveal img { transition: opacity .6s ease, transform .6s ease; }
 
-/* When reduced motion is preferred, show immediately */
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; }
 }
 
-/* ===== Terms Consent Modal ===== */
 .modal-backdrop {
   position: fixed; inset: 0; z-index: 1000;
-  /* 背面は適度に暗く（モーダル自体の透明度を0=不透明にする要望に合わせる） */
   background: rgba(2,6,23,.6);
   display: none;
 }
@@ -294,7 +280,6 @@ html[data-theme="light"] footer { border-top-color: rgba(15,23,42,.08); color: #
   width: min(100% - 24px, 760px);
   border-radius: calc(var(--radius) + 2px);
   border: 1px solid rgba(148,163,184,.18);
-  /* モーダル本体は不透明（透明度0）に */
   background: var(--bg-elev);
   box-shadow: 0 20px 60px rgba(2,6,23,.6);
 }
