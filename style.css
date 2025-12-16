@@ -172,6 +172,10 @@ iframe.discord { width: 100%; min-height: 300px; border: 0; border-radius: 10px;
 
 /* テーマ設定：デフォルトは常にダーク（OS設定に依存しない） */
 :root { color-scheme: dark; }
+/* もし将来的にライトテーマを明示的に有効化したい場合は
+   html または body に data-theme="light" を付与し、
+   下記のコメントアウトを参考に変数を上書きしてください。
+   現状はダーク固定です。 */
 html[data-theme="light"],
 :root[data-theme="light"] {
   /* 指定のライトモード配色 */
@@ -276,6 +280,7 @@ html[data-theme="light"] footer { border-top-color: rgba(15,23,42,.08); color: #
 /* ===== Terms Consent Modal ===== */
 .modal-backdrop {
   position: fixed; inset: 0; z-index: 1000;
+  /* 背面は適度に暗く（モーダル自体の透明度を0=不透明にする要望に合わせる） */
   background: rgba(2,6,23,.6);
   display: none;
 }
@@ -289,6 +294,7 @@ html[data-theme="light"] footer { border-top-color: rgba(15,23,42,.08); color: #
   width: min(100% - 24px, 760px);
   border-radius: calc(var(--radius) + 2px);
   border: 1px solid rgba(148,163,184,.18);
+  /* モーダル本体は不透明（透明度0）に */
   background: var(--bg-elev);
   box-shadow: 0 20px 60px rgba(2,6,23,.6);
 }
@@ -300,4 +306,3 @@ html[data-theme="light"] footer { border-top-color: rgba(15,23,42,.08); color: #
 .tos-foot { padding: 14px 18px 18px; display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
 .tos-foot .btn, .tos-foot .btn-ghost { min-width: 120px; }
 .no-scroll { overflow: hidden !important; }
-
