@@ -9,11 +9,11 @@
   <meta property="og:description" content="サバイバル/クリエイティブ/ミニゲームの紹介。DiscordやLINEオープンチャットへの参加と、お問い合わせ方法（Discordチケット/公式LINE）を掲載。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="/">
-  <meta property="og:image" content="server image.png">
+  <meta property="og:image" content="server-image.webp">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hoxica Nexus Realm — サーバー紹介とコミュニティ・お問い合わせ">
   <meta name="twitter:description" content="サバイバル/クリエイティブ/ミニゲームの紹介。DiscordやLINEオープンチャットへの参加と、お問い合わせ方法（Discordチケット/公式LINE）を掲載。">
-  <meta name="twitter:image" content="server image.png">
+  <meta name="twitter:image" content="server-image.webp">
   <link rel="canonical" href="/">
   <meta name="theme-color" content="#0ea5e9">
   <link rel="icon" href="favicon.ico" sizes="any">
@@ -26,8 +26,8 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css">
-  <script src="main.js" defer></script>
+  <link rel="stylesheet" href="style.min.css">
+  <script src="main.min.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -131,7 +131,10 @@
             <li>プラットフォーム：Java / Bedrock</li>
           </ul>
           <figure class="server-shot">
-            <img alt="Hoxica サーバーのスクリーンショット" loading="lazy" style="display:none">
+            <picture>
+              <source srcset="server-image.webp" type="image/webp">
+              <img src="server image.png" alt="Hoxica サーバーのスクリーンショット" loading="lazy" style="display:none">
+            </picture>
             <figcaption class="muted">サーバー内の様子</figcaption>
           </figure>
         </div>

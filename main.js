@@ -108,13 +108,23 @@
 })();
 
 (function conditionalServerImage() {
-  const img = document.querySelector('.server-shot img');
+  const picture = document.querySelector('.server-shot picture');
+  if (!picture) return;
+  const img = picture.querySelector('img');
   if (!img) return;
-  const url = 'server image.png';
-  fetch(url, { method: 'HEAD' })
+  const source = picture.querySelector('source');
+  
+  // Check if WebP is available
+  const webpUrl = source ? source.srcset : '';
+  const pngUrl = 'server image.png';
+  
+  const checkUrl = webpUrl || pngUrl;
+  if (!checkUrl) return;
+  
+  fetch(checkUrl, { method: 'HEAD' })
     .then(res => {
       if (res.ok) {
-        img.src = url;
+        if (!img.src) img.src = pngUrl;
         img.style.display = 'block';
       }
     })
