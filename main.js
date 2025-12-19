@@ -112,19 +112,14 @@
   if (!picture) return;
   const img = picture.querySelector('img');
   if (!img) return;
-  const source = picture.querySelector('source');
   
-  // Check if WebP is available
-  const webpUrl = source ? source.srcset : '';
+  // Check if the PNG fallback exists
   const pngUrl = 'server image.png';
   
-  const checkUrl = webpUrl || pngUrl;
-  if (!checkUrl) return;
-  
-  fetch(checkUrl, { method: 'HEAD' })
+  fetch(pngUrl, { method: 'HEAD' })
     .then(res => {
       if (res.ok) {
-        if (!img.src) img.src = pngUrl;
+        img.src = pngUrl;
         img.style.display = 'block';
       }
     })
