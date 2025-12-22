@@ -108,13 +108,18 @@
 })();
 
 (function conditionalServerImage() {
-  const img = document.querySelector('.server-shot img');
+  const picture = document.querySelector('.server-shot picture');
+  if (!picture) return;
+  const img = picture.querySelector('img');
   if (!img) return;
-  const url = 'server image.png';
-  fetch(url, { method: 'HEAD' })
+  
+  // Check if the PNG fallback exists
+  const pngUrl = 'server image.png';
+  
+  fetch(pngUrl, { method: 'HEAD' })
     .then(res => {
       if (res.ok) {
-        img.src = url;
+        img.src = pngUrl;
         img.style.display = 'block';
       }
     })
