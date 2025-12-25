@@ -27,6 +27,32 @@
   <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.min.css">
+  <style>
+  /* お知らせモーダルだよ */
+  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1200;align-items:center;justify-content:center;padding:20px}
+  .modal[aria-hidden="false"]{display:flex}
+  .modal .modal-content{background:#fff;color:#111;max-width:900px;width:100%;max-height:80vh;overflow:auto;border-radius:8px;padding:20px;box-sizing:border-box}
+  .modal .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .modal .modal-title{font-size:1.25rem;margin:0}
+  .modal .close-btn{background:transparent;border:0;font-size:1.25rem;cursor:pointer}
+  @media (prefers-color-scheme:dark){
+    .modal .modal-content{background:#0b1220;color:#e6eef8}
+    .modal{background:rgba(0,0,0,0.75)}
+  }
+  /* お知らせボタン */
+  .news-btn{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;background:#0ea5e9;color:#fff;border-radius:6px;text-decoration:none;font-weight:600}
+  .news-btn .icon{font-size:1.05rem}
+  .news-badge{background:#ef4444;color:#fff;border-radius:999px;padding:2px 6px;font-size:0.75rem;margin-left:6px;display:none;min-width:20px;text-align:center}
+  .news-btn.has-news{box-shadow:0 2px 8px rgba(14,165,233,0.18)}
+  @media (max-width:640px){.news-btn{padding:6px 8px;font-size:0.95rem}}
+  .container.nav{display:flex;align-items:center;gap:12px;justify-content:space-between}
+  .nav-links{display:flex;align-items:center;gap:12px}
+  .nav-links .left{display:flex;gap:12px;align-items:center}
+  .nav-links .right{display:flex;gap:8px;align-items:center}
+  @media (max-width:800px){
+    .nav-links{gap:8px}
+  }
+  </style>
   <script src="main.min.js" defer></script>
   <script type="application/ld+json">
   {
@@ -58,13 +84,22 @@
       </a>
       <button id="themeToggle" class="theme-toggle" aria-label="テーマを切り替え">🌙</button>
       <nav class="nav-links" id="navLinks" role="navigation" aria-label="主要ナビゲーション">
-        <a href="#features">サーバーの特徴</a>
-        <a href="#about">サーバー紹介</a>
-        <a href="#join">参加方法</a>
-        <a href="#community">コミュニティ</a>
-        <a href="#staff">運営紹介</a>
-        <a href="#contact">お問い合わせ</a>
-        <a class="btn" href="#cta">参加する</a>
+        <div class="left">
+          <a href="#features">サーバーの特徴</a>
+          <a href="#about">サーバー紹介</a>
+          <a href="#join">参加方法</a>
+          <a href="#community">コミュニティ</a>
+          <a href="#staff">運営紹介</a>
+        </div>
+        <div class="right">
+          <a href="#contact">お問い合わせ</a>
+          <a class="btn" href="#cta">参加する</a>
+          <a href="#" id="newsBtn" class="news-btn" aria-expanded="false" role="button">
+            <span class="icon" aria-hidden="true">🔔</span>
+            <span class="label">お知らせ</span>
+            <span id="newsCount" class="news-badge" aria-hidden="true"></span>
+          </a>
+        </div>
       </nav>
       <button class="menu-btn" id="menuBtn" aria-label="メニュー" aria-controls="navLinks" aria-expanded="false">☰</button>
     </div>
@@ -78,6 +113,12 @@
       <div class="hero-cta">
         <a class="btn" rel="noopener noreferrer" target="_blank" href="https://dc.gg/hosy">Discordに参加</a>
         <a class="btn btn-ghost" rel="noopener noreferrer" target="_blank" href="https://line.me/ti/g2/eAv7U6IeXsiMIAL4KbG77YR5z_10VdQPO-N7sA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default">LINEオープンチャットに参加</a>
+      </div>
+    </section>
+    <section id="news" class="section container" style="display:none;" aria-hidden="true">
+      <h2>お知らせ</h2>
+      <div id="news-list">
+        <p class="muted">読み込み中…</p>
       </div>
     </section>
     <section id="features" class="features container">
@@ -258,6 +299,10 @@
               <a class="btn" rel="noopener noreferrer" target="_blank" href="https://dc.gg/hosy">Discordでチケットを作成</a>
               <a class="btn btn-ghost" rel="noopener noreferrer" target="_blank" href="https://lin.ee/IggTmaZH">公式LINEで問い合わせ</a>
             </div>
+            <div class="form-embed" style="margin-top:16px;">
+              <p class="muted" style="margin:0 0 8px;">お問い合わせフォームは外部で開きます。（別タブ）</p>
+              <a class="btn" href="https://forms.gle/vW5zPecBXYXR6Lmi7" target="_blank" rel="noopener noreferrer">お問い合わせフォームを開く（外部リンク）</a>
+            </div>
           </div>
         </div>
       </div>
@@ -270,6 +315,157 @@
       <span><a href="rules.html">サーバールール</a> ・ <a href="#contact">お問い合わせ</a> ・ <a href="#community">コミュニティ</a></span>
     </div>
   </footer>
+  <div id="newsModal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="newsModalTitle">
+    <div class="modal-content" role="document" tabindex="-1">
+      <div class="modal-header">
+        <h3 id="newsModalTitle" class="modal-title">お知らせ</h3>
+        <div>
+          <button id="newsModalClose" class="close-btn" aria-label="閉じる">✕</button>
+        </div>
+      </div>
+      <div id="news-modal-list">
+        <p class="muted">読み込み中…</p>
+      </div>
+    </div>
+  </div>
+    <div id="newsDetailModal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="newsDetailTitle">
+      <div class="modal-content" role="document" tabindex="-1">
+        <div class="modal-header">
+          <h3 id="newsDetailTitle" class="modal-title">お知らせ</h3>
+          <div>
+            <button id="newsDetailClose" class="close-btn" aria-label="閉じる">✕</button>
+          </div>
+        </div>
+        <div id="news-detail-body" style="white-space:pre-wrap;"></div>
+      </div>
+    </div>
+  <script>
+  (function(){
+    const newsBtn = document.getElementById('newsBtn');
+    const newsModal = document.getElementById('newsModal');
+    const newsModalClose = document.getElementById('newsModalClose');
+    const newsModalList = document.getElementById('news-modal-list');
+      const newsDetailModal = document.getElementById('newsDetailModal');
+      const newsDetailClose = document.getElementById('newsDetailClose');
+
+    function openNewsModal(){
+      if(!newsModal) return;
+      newsModal.setAttribute('aria-hidden','false');
+      newsModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      if(newsBtn) newsBtn.setAttribute('aria-expanded','true');
+      const content = newsModal.querySelector('.modal-content');
+      if(content) content.focus();
+    }
+    function closeNewsModal(){
+      if(!newsModal) return;
+      newsModal.setAttribute('aria-hidden','true');
+      newsModal.style.display = 'none';
+      document.body.style.overflow = '';
+      if(newsBtn){ newsBtn.setAttribute('aria-expanded','false'); newsBtn.focus(); }
+    }
+      function closeNewsDetailModal(){
+        if(!newsDetailModal) return;
+        newsDetailModal.setAttribute('aria-hidden','true');
+        newsDetailModal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    if(newsBtn){
+      newsBtn.addEventListener('click', function(e){ e.preventDefault(); openNewsModal(); });
+      newsBtn.setAttribute('aria-expanded','false');
+    }
+    if(newsModalClose) newsModalClose.addEventListener('click', closeNewsModal);
+      if(newsDetailClose) newsDetailClose.addEventListener('click', closeNewsDetailModal);
+    if(newsModal){
+      newsModal.addEventListener('click', function(e){ if(e.target === newsModal) closeNewsModal(); });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeNewsModal(); });
+    }
+
+    const target = newsModalList || document.getElementById('news-list');
+    const sheetId = '1dvkERd9PAa0JYM4yH5u7hrKNaK8K5_ARevJzx8UeIbs';
+    const sheetName = 'お知らせ';
+    const url = 'https://docs.google.com/spreadsheets/d/'+sheetId+'/gviz/tq?tqx=out:json&sheet='+encodeURIComponent(sheetName);
+
+    function escapeHtml(s){ return (''+s).replace(/[&<>"]+/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]||m;}); }
+
+    fetch(url).then(r=>r.text()).then(t=>{
+      const json = JSON.parse(t.replace(/^[^\(]*\(/,'').replace(/\);?$/,''));
+      const cols = (json.table.cols||[]).map(c=> (c.label||c.id||'').trim());
+      const rows = (json.table.rows||[]).map(r=>{
+        const obj = {};
+        (r.c||[]).forEach((cell,i)=>{ obj[cols[i]||i] = (cell && cell.v != null) ? cell.v : ''; });
+        return obj;
+      });
+
+      const statusKey = cols.find(k=>/status|ステータス|公開/i.test(k));
+      const idKey = cols.find(k=>/^id$/i.test(k) || /番号|id/i.test(k));
+      const titleKey = cols.find(k=>/title|件名|タイトル|お知らせ/i.test(k));
+      const dateKey = cols.find(k=>/date|日付|日時/i.test(k));
+      const contentKey = cols.find(k=>/content|内容|本文|説明/i.test(k));
+
+      const filtered = rows.filter(row=>{
+        const s = statusKey ? (row[statusKey]||'') : '';
+        return s === 'Hoxicaで公開' || s === '両方で公開';
+      });
+
+      filtered.sort((a,b)=>{
+        const va = idKey ? a[idKey] : '';
+        const vb = idKey ? b[idKey] : '';
+        const na = Number(va); const nb = Number(vb);
+        if(!isNaN(na) && !isNaN(nb)) return na - nb;
+        return (''+va).localeCompare(''+vb, undefined, {numeric:true});
+      });
+
+      if(!target) return;
+      const newsCountEl = document.getElementById('newsCount');
+      if(newsCountEl){
+        if(filtered.length > 0){ newsCountEl.textContent = filtered.length; newsCountEl.style.display = 'inline-block'; if(newsBtn) newsBtn.classList.add('has-news'); }
+        else { newsCountEl.textContent = ''; newsCountEl.style.display = 'none'; if(newsBtn) newsBtn.classList.remove('has-news'); }
+      }
+      if(filtered.length === 0){ target.innerHTML = '<p class="muted">現在お知らせはありません。</p>'; return; }
+
+      const maxChars = 10;
+      target.innerHTML = filtered.map(row=>{
+        const title = titleKey ? row[titleKey] : (idKey ? ('お知らせ #' + row[idKey]) : 'お知らせ');
+        const date = dateKey ? ('<div class="muted">'+escapeHtml(row[dateKey])+'</div>') : '';
+        const raw = contentKey ? (row[contentKey]||'') : '';
+        const fullHtml = escapeHtml(raw).replace(/\r?\n/g,'<br>');
+        let contentHtml = '';
+        if(raw && raw.length > maxChars){
+          const trunc = escapeHtml(raw.slice(0,maxChars)).replace(/\r?\n/g,'<br>');
+          contentHtml = '<p class="news-content" style="margin:0 0 8px; white-space:pre-wrap;">'+trunc+'... <a href="#" class="read-more">続きを読む</a></p>'+
+                        '<div class="news-full" style="display:none; margin-bottom:12px; white-space:pre-wrap;">'+fullHtml+'</div>';
+        } else if(raw){
+          contentHtml = '<p class="news-content" style="margin:0 0 12px; white-space:pre-wrap;">'+fullHtml+'</p>';
+        }
+        return '<article class="card"><h3>'+escapeHtml(title)+'</h3>'+date+contentHtml+'</article>';
+      }).join('');
+
+      // delegate clicks on a card or read-more to open detail modal
+      target.addEventListener('click', function(ev){
+        const t = ev.target;
+        const card = t.closest('article.card');
+        if(!card) return;
+        // ignore clicks on links inside the card other than read-more
+        if(t.tagName === 'A' && !t.classList.contains('read-more')) return;
+        ev.preventDefault();
+        const title = card.querySelector('h3') ? card.querySelector('h3').textContent : '';
+        const fullEl = card.querySelector('.news-full');
+        const contentHtml = fullEl ? fullEl.innerHTML : (card.querySelector('.news-content') ? card.querySelector('.news-content').innerHTML : '');
+        if(!newsDetailModal) return;
+        const detailTitle = document.getElementById('newsDetailTitle');
+        const detailBody = document.getElementById('news-detail-body');
+        if(detailTitle) detailTitle.textContent = title;
+        if(detailBody) detailBody.innerHTML = contentHtml;
+        newsDetailModal.setAttribute('aria-hidden','false');
+        newsDetailModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      });
+    }).catch(err=>{
+      console.error('お知らせ取得エラー', err);
+      if(target) target.innerHTML = '<p class="muted">お知らせの取得に失敗しました。</p>';
+    });
+  })();
+  </script>
 </body>
 </html>
-
