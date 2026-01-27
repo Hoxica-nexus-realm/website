@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チェス - AI対戦</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <h1>♔ チェス - AI対戦 ♚</h1>
+    
+    <div class="game-container">
+        <div class="board-container">
+            <div class="rank-labels">
+                <span>8</span><span>7</span><span>6</span><span>5</span>
+                <span>4</span><span>3</span><span>2</span><span>1</span>
+            </div>
+            <div id="chessboard"></div>
+            <div class="file-labels">
+                <span>a</span><span>b</span><span>c</span><span>d</span>
+                <span>e</span><span>f</span><span>g</span><span>h</span>
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <h2>🎮 ゲーム情報</h2>
+            
+            <div class="status" id="status">あなたの番です（白）</div>
+            
+            <div class="difficulty">
+                <label>🤖 AI難易度</label>
+                <select id="difficulty">
+                    <option value="2">初級（深さ2）</option>
+                    <option value="3">中級（深さ3）</option>
+                    <option value="4" selected>上級（深さ4）</option>
+                    <option value="5">最強（深さ5）</option>
+                </select>
+            </div>
+            
+            <div class="captured-pieces">
+                <h3>🏆 獲得した駒（あなた）</h3>
+                <div class="captured-list" id="player-captured"></div>
+                <h3 style="margin-top: 15px;">💀 獲得した駒（AI）</h3>
+                <div class="captured-list" id="ai-captured"></div>
+            </div>
+            
+            <div class="controls">
+                <button id="new-game">🔄 新しいゲーム</button>
+                <button id="undo">↩️ 待った</button>
+            </div>
+            
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">📜 棋譜</h3>
+            <div class="move-history" id="move-history"></div>
+        </div>
+    </div>
+    
+    <!-- プロモーションモーダル -->
+    <div class="modal" id="promotion-modal">
+        <div class="modal-content">
+            <h3>駒を選択してください</h3>
+            <div class="promotion-pieces" id="promotion-pieces"></div>
+        </div>
+    </div>
+    
+    <!-- ゲームオーバーモーダル -->
+    <div class="game-over-modal" id="game-over-modal">
+        <div class="game-over-content">
+            <h2 id="game-over-title">ゲーム終了</h2>
+            <p id="game-over-message"></p>
+            <button id="play-again">もう一度プレイ</button>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
