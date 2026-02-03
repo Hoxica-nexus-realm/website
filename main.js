@@ -113,7 +113,6 @@
   const img = picture.querySelector('img');
   if (!img) return;
   
-  // Check if the PNG fallback exists
   const pngUrl = 'server image.png';
   
   fetch(pngUrl, { method: 'HEAD' })
