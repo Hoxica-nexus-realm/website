@@ -6,60 +6,6 @@
   if (y) y.textContent = new Date().getFullYear();
 })();
 
-(function themeToggle() {
-  const root = document.documentElement;
-  const btn = document.getElementById('themeToggle');
-
-  const apply = (mode) => {
-    if (mode === 'light') {
-      root.setAttribute('data-theme', 'light');
-    } else {
-      root.removeAttribute('data-theme');
-    }
-    if (btn) {
-      const isLight = mode === 'light';
-      if (!btn.querySelector('svg')) {
-        const sun = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        sun.setAttribute('viewBox', '0 0 24 24');
-        sun.setAttribute('aria-hidden', 'true');
-        sun.classList.add('icon', 'sun');
-        const sunPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        sunPath.setAttribute('fill', 'currentColor');
-        sunPath.setAttribute('d', 'M12 7.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0-5a1 1 0 0 1 1 1v1.5a1 1 0 1 1-2 0V3.5a1 1 0 0 1 1-1ZM12 20.5a1 1 0 0 1-1-1V18a1 1 0 1 1 2 0v1.5a1 1 0 0 1-1 1ZM3.5 11a1 1 0 0 1 1-1H6a1 1 0 1 1 0 2H4.5a1 1 0 0 1-1-1Zm15.5-1a1 1 0 1 1 0 2h1.5a1 1 0 1 1 0-2H19ZM5.05 4.64a1 1 0 0 1 1.41 0L7.6 5.78a1 1 0 1 1-1.41 1.41L5.05 6.05a1 1 0 0 1 0-1.41Zm10.8 10.8a1 1 0 0 1 1.41 0l1.13 1.13a1 1 0 1 1-1.41 1.41l-1.13-1.13a1 1 0 0 1 0-1.41Zm1.13-10.8a1 1 0 0 1 1.41 1.41L17.26 7.6a1 1 0 1 1-1.41-1.41l1.13-1.13ZM6.05 16.4a1 1 0 0 1 1.41 1.41l-1.13 1.13a1 1 0 0 1-1.41-1.41L6.05 16.4Z');
-        sun.appendChild(sunPath);
-
-        const moon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        moon.setAttribute('viewBox', '0 0 24 24');
-        moon.setAttribute('aria-hidden', 'true');
-        moon.classList.add('icon', 'moon');
-        const moonPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        moonPath.setAttribute('fill', 'currentColor');
-        moonPath.setAttribute('d', 'M21 12.75a8.25 8.25 0 0 1-11.5 7.62 8.25 8.25 0 0 0 0-15.24A8.25 8.25 0 0 1 21 12.75Z');
-        moon.appendChild(moonPath);
-
-        btn.innerHTML = '';
-        btn.appendChild(sun);
-        btn.appendChild(moon);
-      }
-      btn.classList.toggle('is-light', isLight);
-      btn.setAttribute('aria-label', isLight ? 'ダークモードに切り替え' : 'ライトモードに切り替え');
-      btn.title = isLight ? 'ダークモードに切り替え' : 'ライトモードに切り替え';
-    }
-  };
-
-  const saved = (typeof localStorage !== 'undefined') ? localStorage.getItem('theme') : null;
-  const initial = (saved === 'light' || saved === 'dark') ? saved : 'dark';
-  apply(initial);
-
-  if (btn) {
-    btn.addEventListener('click', () => {
-      const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-      const next = current === 'light' ? 'dark' : 'light';
-      apply(next);
-      try { localStorage.setItem('theme', next); } catch (_) {}
-    });
-  }
-})();
 
 (function mobileMenu() {
   const nav = document.getElementById('navLinks');
