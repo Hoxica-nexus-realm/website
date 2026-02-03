@@ -1,2 +1,2 @@
-html{background:radial-gradient(ellipse 1400px 700px at 60% -10%, rgba(99,102,241,0.12) 0%, rgba(14,165,233,0.08) 38%, transparent 75%), var(--bg) !important}
-html[data-theme="light"]{background:radial-gradient(ellipse 1400px 700px at 60% -10%, rgba(56,189,248,0.10) 0%, rgba(99,102,241,0.06) 38%, transparent 75%), var(--bg) !important}
+/* Compatibility shim: consolidated to /css/overrides.css */
+@import url("css/overrides.css");

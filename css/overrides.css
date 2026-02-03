@@ -1,2 +1,128 @@
 html{background:radial-gradient(ellipse 1400px 700px at 60% -10%, rgba(99,102,241,0.12) 0%, rgba(14,165,233,0.08) 38%, transparent 75%), var(--bg) !important}
 html[data-theme="light"]{background:radial-gradient(ellipse 1400px 700px at 60% -10%, rgba(56,189,248,0.10) 0%, rgba(99,102,241,0.06) 38%, transparent 75%), var(--bg) !important}
+
+.nav-links a.active {
+  color: var(--accent-solid) !important;
+  position: relative;
+}
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: var(--accent-solid);
+  border-radius: 2px;
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+}
+
+body:not(.loaded) .hero-title,
+body:not(.loaded) .hero-subtitle,
+body:not(.loaded) .hero-cta {
+  opacity: 0;
+}
+body.loaded .hero-title,
+body.loaded .hero-subtitle,
+body.loaded .hero-cta {
+  opacity: 1;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent-solid);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+.card:hover::after {
+  left: 100%;
+}
+
+.copied {
+  background: #10b981 !important;
+}
+
+.scroll-top svg {
+  transition: transform 0.2s ease;
+}
+.scroll-top:hover svg {
+  transform: translateY(-2px);
+}
+
+::selection {
+  background: rgba(14, 165, 233, 0.3);
+  color: inherit;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html[data-theme="light"] .scroll-top {
+  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.25);
+}
+html[data-theme="light"] .card::before {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, transparent 50%);
+}
+html[data-theme="light"] .hero-particles::before,
+html[data-theme="light"] .hero-particles::after {
+  opacity: 0.15;
+}
+
+.features .card:hover .icon {
+  animation: bounce 0.5s ease;
+}
+
+#join ol li {
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+#join ol li:hover {
+  color: var(--text);
+}
+
+.cta-wrap .btn {
+  animation: glow 2s ease-in-out infinite;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 16px;
+  }
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+  .section h2::after {
+    width: 40px;
+  }
+  .cta-wrap {
+    padding: 28px 20px;
+  }
+}

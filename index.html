@@ -3,13 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hoxica Nexus Realm | マイクラ サバイバル・クリエイティブ・ミニゲームサーバー</title>
-  <meta name="description" content="Hoxica Nexus Realm は、サバイバル・クリエイティブ・ミニゲームを遊べるマインクラフトマルチサーバー。Java版・統合版対応。Discord・LINEコミュニティで初心者も安心。">
+  <title>Hoxica Nexus Realm | マイクラ サバイバル・クリエイティブ・ミニゲームサーバー【Java版/統合版対応】</title>
+  <meta name="description" content="Hoxica Nexus Realm は、サバイバル・クリエイティブ・ミニゲームを遊べるマインクラフトマルチサーバー。Java版・統合版対応。Discord・LINEコミュニティで初心者も安心。24時間稼働で友達といつでも遊べます。">
+  <meta name="keywords" content="Minecraft, マイクラ, マインクラフト, サーバー, マルチプレイ, Java版, 統合版, サバイバル, クリエイティブ, ミニゲーム, Discord, LINE, Hoxica">
+  <meta name="author" content="Hoxica Nexus Realm">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta property="og:title" content="Hoxica Nexus Realm — マイクラ マルチプレイサーバー / Minecraft Multiplayer Server">
   <meta property="og:description" content="Hoxica Nexus Realm は、サバイバル・クリエイティブ・ミニゲームで遊べるマルチプレイ対応のMinecraftサーバーです。初心者歓迎、Java版・統合版どちらも参加可能。Discord・LINEでコミュニティも活発！">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hoxica.com/">
   <meta property="og:image" content="https://hoxica.com/server%20image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Hoxica Nexus Realm サーバーの様子">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="Hoxica Nexus Realm">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hoxica Nexus Realm — サーバー紹介とコミュニティ・お問い合わせ">
   <meta name="twitter:description" content="サバイバル/クリエイティブ/ミニゲームの紹介。DiscordやLINEオープンチャットへの参加と、お問い合わせ方法(Discordチケット/公式LINE)を掲載。">
@@ -18,19 +26,31 @@
   <meta name="theme-color" content="#0ea5e9">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
-  <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
-  <link rel="icon" type="image/png" href="favicon-48x48.png" sizes="48x48">
+  <!-- DNS プリフェッチ & プリコネクト -->
+  <link rel="dns-prefetch" href="//dc.gg">
+  <link rel="dns-prefetch" href="//discord.gg">
+  <link rel="dns-prefetch" href="//line.me">
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="icon" href="images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="images/favicon-48x48.png" sizes="48x48">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="icon" type="image/png" href="android-chrome-192x192.png" sizes="192x192">
-  <link rel="icon" type="image/png" href="android-chrome-512x512.png" sizes="512x512">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" href="images/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="images/android-chrome-512x512.png" sizes="512x512">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/overrides.css">
+  <!-- プリロード -->
+  <link rel="preload" href="images/server image1.png" as="image">
   <style>
+  /* パフォーマンス最適化: Critical CSS inline */
+  :root{--bg:#0b0f14;--bg-elev:#0f141b;--text:#e6edf3;--muted:#93a1b1;--primary:#0ea5e9;--accent:linear-gradient(135deg,#22d3ee 0%,#0ea5e9 50%,#6366f1 100%);--accent-solid:#22d3ee;--shadow:0 10px 30px rgba(2,6,23,0.6);--radius:14px;--container:1200px}
+  body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Noto Sans JP,sans-serif;color:var(--text);line-height:1.6}
+  .container{width:min(100% - 32px,var(--container));margin-inline:auto}
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(10px);background:rgba(11,15,20,.6);border-bottom:1px solid rgba(148,163,184,.12)}
   /* お知らせモーダルだよ */
   .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1200;align-items:center;justify-content:center;padding:20px}
   .modal[aria-hidden="false"]{display:flex}
@@ -67,6 +87,12 @@
       .nav-links .right{flex-direction:column;align-items:flex-end;width:100%}
       .nav-links .right a{text-align:right}
     }
+    /* ページトップボタン */
+    .scroll-top{position:fixed;bottom:24px;right:24px;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 20px rgba(14,165,233,0.4);opacity:0;visibility:hidden;transform:translateY(20px);transition:opacity .3s ease,transform .3s ease,visibility .3s ease;z-index:999}
+    .scroll-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
+    .scroll-top:hover{filter:brightness(1.1);transform:translateY(-2px)}
+    .scroll-top:active{transform:scale(0.95)}
+    @media (max-width:640px){.scroll-top{bottom:16px;right:16px;width:44px;height:44px;font-size:20px}}
   </style>
   <script type="application/ld+json">
   {
@@ -76,14 +102,71 @@
     "url": "https://hoxica.com/",
     "logo": "https://hoxica.com/favicon-48x48.png",
     "description": "サバイバル・クリエイティブ・ミニゲームを遊べるマインクラフトマルチサーバー。Java版・統合版対応。",
+    "foundingDate": "2024",
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "Customer Support",
-      "availableLanguage": "Japanese"
+      "availableLanguage": ["Japanese", "English"]
     },
     "sameAs": [
       "https://dc.gg/hosy",
       "https://lin.ee/IggTmaZH"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Hoxica Nexus Realm",
+    "url": "https://hoxica.com/",
+    "description": "マインクラフトマルチサーバー Hoxica Nexus Realm の公式サイト",
+    "inLanguage": "ja",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://hoxica.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Hoxica Nexus Realm Server",
+    "description": "サバイバル・クリエイティブ・ミニゲームを遊べるマインクラフトマルチサーバー",
+    "gamePlatform": ["PC", "Mobile", "Console"],
+    "applicationCategory": "Game",
+    "genre": ["Survival", "Creative", "Minigame"],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Java版でのサーバー参加方法は？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "マルチプレイを選択→サーバーを追加→アドレス欄に「mc.cg.gy」を入力して接続"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "統合版でのサーバー参加方法は？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "プレイを選択→フレンドを選択→「silicaguild」にフレンド申請→数秒待ってから参加"
+        }
+      }
     ]
   }
   </script>
@@ -112,13 +195,24 @@
 
   <main id="main">
     <section class="hero container">
-      <span class="badge">公式サイト</span>
-      <h1>Hoxica Nexus Realm</h1>
-      <p class="lead">サバイバル・クリエイティブ・ミニゲームで遊べるマルチサーバー。初心者から上級者まで、みんなで楽しく。</p>
+      <span class="badge animate-badge">
+        <span class="pulse-dot"></span>
+        公式サイト
+      </span>
+      <h1 class="hero-title">Hoxica Nexus Realm</h1>
+      <p class="lead hero-subtitle">サバイバル・クリエイティブ・ミニゲームで遊べるマルチサーバー。<br class="hide-mobile">初心者から上級者まで、みんなで楽しく。</p>
       <div class="hero-cta">
-        <a class="btn" rel="noopener noreferrer" target="_blank" href="https://dc.gg/hosy">Discordに参加</a>
-        <a class="btn btn-ghost" rel="noopener noreferrer" target="_blank" href="https://line.me/ti/g2/eAv7U6IeXsiMIAL4KbG77YR5z_10VdQPO-N7sA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default">LINEオープンチャットに参加</a>
+        <a class="btn btn-glow" rel="noopener noreferrer" target="_blank" href="https://dc.gg/hosy">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+          Discordに参加
+        </a>
+        <a class="btn btn-ghost btn-glow-ghost" rel="noopener noreferrer" target="_blank" href="https://line.me/ti/g2/eAv7U6IeXsiMIAL4KbG77YR5z_10VdQPO-N7sA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.349 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          LINEオープンチャット
+        </a>
       </div>
+      <!-- パーティクル背景 -->
+      <div class="hero-particles" aria-hidden="true"></div>
     </section>
     <section id="news" class="section container" style="display:none;" aria-hidden="true">
       <h2>お知らせ</h2>
@@ -322,6 +416,15 @@
       <span><a href="rules.html">サーバールール</a> ・ <a href="#contact">お問い合わせ</a> ・ <a href="#community">コミュニティ</a></span>
     </div>
   </footer>
+
+  <!-- ページトップボタン -->
+  <button class="scroll-top" id="scrollTop" aria-label="ページトップへ戻る" title="ページトップへ戻る">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <script src="js/main.js" defer></script>
 </body>
 
 </html>
